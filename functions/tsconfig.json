@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "esnext.asynciterable"],
+    "target": "es2017",
+    "module": "commonjs",
+    "outDir": "lib",
+    "rootDir": "src",
+    "strict": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

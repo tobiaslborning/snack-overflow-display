@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth"
-import { auth } from "@/app/firebase/config";
+import { auth } from "./../../firebase/config";
 
 export default function Home() {
   const [user] = useAuthState(auth);

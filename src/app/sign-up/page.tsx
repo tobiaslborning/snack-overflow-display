@@ -71,6 +71,10 @@ const SignUp = () => {
         <TabsTrigger value="signin">Sign In</TabsTrigger>
       </TabsList>
       <TabsContent value='signup' className='mt-4'>
+          <div className='text-background my-4'>
+            <p>Bruk av Apple og Google pay vil ikke bli tracket, ettersom kortnummeret endrer seg fra dag til dag.</p>
+            <p>Denne siden har også helt ass feilhåndtering, så prøv å ikke fuck up på registreringen.</p>
+          </div>
           <div className='flex gap-3'>
           <input 
             type="text" 
@@ -116,6 +120,9 @@ const SignUp = () => {
           </button>
       </TabsContent>
       <TabsContent value='signin' className='mt-4'>
+          <div className='text-background my-4'>
+            <p>Hvis du ikke blir sendt videre har du skrevet noe feil.</p>
+          </div>
           <input 
             type="email" 
             placeholder="Email" 

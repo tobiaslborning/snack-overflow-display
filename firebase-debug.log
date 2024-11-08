@@ -1,0 +1,88 @@
+[debug] [2024-11-08T13:12:07.952Z] ----------------------------------------------------------------------
+[debug] [2024-11-08T13:12:07.954Z] Command:       /Users/tobiasborning/.nvm/versions/node/v22.0.0/bin/node /Users/tobiasborning/.nvm/versions/node/v22.0.0/bin/firebase deploy
+[debug] [2024-11-08T13:12:07.955Z] CLI Version:   13.24.1
+[debug] [2024-11-08T13:12:07.955Z] Platform:      darwin
+[debug] [2024-11-08T13:12:07.955Z] Node Version:  v22.0.0
+[debug] [2024-11-08T13:12:07.955Z] Time:          Fri Nov 08 2024 14:12:07 GMT+0100 (Central European Standard Time)
+[debug] [2024-11-08T13:12:07.955Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-08T13:12:07.999Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-08T13:12:07.999Z] > authorizing via signed-in user (tobias.borning@gmail.com)
+[debug] [2024-11-08T13:12:07.999Z] [iam] checking project snack-overflow-display for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-11-08T13:12:08.000Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:08.000Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:08.000Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/snack-overflow-display:testIamPermissions [none]
+[debug] [2024-11-08T13:12:08.000Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/snack-overflow-display:testIamPermissions x-goog-quota-user=projects/snack-overflow-display
+[debug] [2024-11-08T13:12:08.000Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/snack-overflow-display:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-11-08T13:12:08.347Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/snack-overflow-display:testIamPermissions 200
+[debug] [2024-11-08T13:12:08.348Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/snack-overflow-display:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-11-08T13:12:08.348Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:08.348Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:08.348Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/snack-overflow-display/serviceAccounts/snack-overflow-display@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-11-08T13:12:08.348Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/snack-overflow-display/serviceAccounts/snack-overflow-display@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-11-08T13:12:09.190Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/snack-overflow-display/serviceAccounts/snack-overflow-display@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-11-08T13:12:09.190Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/snack-overflow-display/serviceAccounts/snack-overflow-display@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-11-08T13:12:09.191Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:09.191Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:09.191Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display [none]
+[debug] [2024-11-08T13:12:09.529Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display 200
+[debug] [2024-11-08T13:12:09.530Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display {"projectId":"snack-overflow-display","projectNumber":"1060366796686","displayName":"snack-overflow-display","name":"projects/snack-overflow-display","resources":{"hostingSite":"snack-overflow-display"},"state":"ACTIVE","etag":"1_a3baef8d-fed3-43ae-b445-9bcb59fcc87c"}
+[debug] [2024-11-08T13:12:10.787Z] defaultcredentials: writing to file /Users/tobiasborning/.config/firebase/tobias_borning_gmail.com_application_default_credentials.json
+[debug] [2024-11-08T13:12:10.789Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:10.789Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:10.789Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites pageToken=&pageSize=10
+[debug] [2024-11-08T13:12:11.793Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites 200
+[debug] [2024-11-08T13:12:11.793Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites {"sites":[{"name":"projects/snack-overflow-display/sites/snack-overflow-display","defaultUrl":"https://snack-overflow-display.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2024-11-08T13:12:11.794Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:11.794Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:11.794Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites 
+[debug] [2024-11-08T13:12:12.071Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites 200
+[debug] [2024-11-08T13:12:12.072Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites {"sites":[{"name":"projects/snack-overflow-display/sites/snack-overflow-display","defaultUrl":"https://snack-overflow-display.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2024-11-08T13:12:12.072Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:12.072Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:12.072Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display/webApps/-/config [none]
+[debug] [2024-11-08T13:12:12.868Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display/webApps/-/config 200
+[debug] [2024-11-08T13:12:12.869Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/snack-overflow-display/webApps/-/config {"projectId":"snack-overflow-display","appId":"1:1060366796686:web:a472acf6980f9fd61386df","storageBucket":"snack-overflow-display.firebasestorage.app","apiKey":"AIzaSyA_4sMpYgKWAQ7eMt_7wuGIyrFVMhogojA","authDomain":"snack-overflow-display.firebaseapp.com","messagingSenderId":"1060366796686","measurementId":"G-36J0VX01YX"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2024-11-08T13:12:15.469Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:15.469Z] Checked if tokens are valid: true, expires at: 1731073284936
+[debug] [2024-11-08T13:12:15.469Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites/snack-overflow-display [none]
+[debug] [2024-11-08T13:12:15.680Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites/snack-overflow-display 200
+[debug] [2024-11-08T13:12:15.680Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/snack-overflow-display/sites/snack-overflow-display {"name":"projects/snack-overflow-display/sites/snack-overflow-display","defaultUrl":"https://snack-overflow-display.web.app","type":"DEFAULT_SITE"}
+[info]   ▲ Next.js 14.2.16
+
+[info]   - Environments: .env.local
+
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully
+
+[info]    Linting and checking validity of types ...
+
+[info]    Collecting page data ...
+
+[info] unhandledRejection Error [PageNotFoundError]: Cannot find module for page: /_document
+    at getPagePath (/Users/tobiasborning/Personlig/Koskom/snack-overflow-display/node_modules/next/dist/server/require.js:94:15)
+    at requirePage (/Users/tobiasborning/Personlig/Koskom/snack-overflow-display/node_modules/next/dist/server/require.js:99:22)
+    at /Users/tobiasborning/Personlig/Koskom/snack-overflow-display/node_modules/next/dist/server/load-components.js:72:65
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (/Users/tobiasborning/Personlig/Koskom/snack-overflow-display/node_modules/next/dist/server/load-components.js:71:33)
+    at async Object.hasCustomGetInitialProps (/Users/tobiasborning/Personlig/Koskom/snack-overflow-display/node_modules/next/dist/build/utils.js:1273:24) {
+  type: 'PageNotFoundError',
+  code: 'ENOENT'
+}
+
+[debug] [2024-11-08T13:12:24.520Z] Error: ENOENT: no such file or directory, open '/Users/tobiasborning/Personlig/Koskom/snack-overflow-display/.next/export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.

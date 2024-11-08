@@ -12,6 +12,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Leaderboard } from "@/components/leaderboard";
 import { SponsoredSegment } from "@/components/sponsored-segment";
+import Image from "next/image";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -45,11 +46,14 @@ export default function Home() {
   return (
       <main className="flex flex-col gap-8">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-medium" >SnackOverflow</h1>
+          <div className="flex">
+            <Image unoptimized src="/images/qr.png" alt="" width={200} height={200} className="size-14" />
+            <h1 className="text-3xl mt-3 ml-3 font-medium" >SnackOverflow</h1>
+          </div>
           {user?.email ? ( 
           <Popover>
             <PopoverTrigger>
-              <Avatar className="hover:cursor-pointer" onClick={() =>{
+              <Avatar className="hover:cursor-pointer mt-3" onClick={() =>{
                 getUserTotalSpend(user.uid).then((spend) => {
                   console.log(user.uid);
                   console.log(spend);
@@ -70,7 +74,7 @@ export default function Home() {
               </div>
             </PopoverContent>
           </Popover>) : (
-            <Avatar className="hover:cursor-pointer" onClick={() =>{
+            <Avatar className="hover:cursor-pointer mt-3" onClick={() =>{
               router.push("/sign-up")
             }}>
               <AvatarFallback>

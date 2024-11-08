@@ -111,7 +111,7 @@ const PurchaseListener: React.FC = () => {
     return (
       <Card className={`w-full ${isFlashing ? 'border-green-500 border-2' : 'border-border border-[1px]'}`}>
         <CardHeader className='font-medium text-muted-foreground lg:text-3xl text-xl'>
-          {latestPayment?.userName && latestPayment.userName + " purchased:"}
+          {latestPayment?.userName ? latestPayment.userName + " purchased:" : "New purchase:"}
         </CardHeader>
         <CardContent className='font-medium lg:text-5xl text-3xl'>
           {latestPayment &&

@@ -1,7 +1,7 @@
 import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/config";
-import { Card, CardContent, CardHeader } from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Separator } from "./ui/separator";
 
 interface User {
@@ -25,7 +25,7 @@ export function Leaderboard() {
         const q = query(
             collection(db, "users"), // Replace "testPurchase" with your collection name
             orderBy("totalSpend", "desc"),   // Order by timestamp in descending order
-            limit(5)                         // Limit to the newest document
+            limit(10)                         // Limit to the newest document
           );
           // Set up the snapshot listener
           const unsubscribe = onSnapshot(q, async (snapshot) => {
@@ -69,12 +69,15 @@ export function Leaderboard() {
                         </div>
                         <span className="italic">{user.totalSpend + "kr"}</span>
                     </div>
-                    <Separator />
+                    {index !== leaderboardData.length -1 && <Separator />}
                     </>
 
                 );
             })}
             </CardContent>
+            <CardFooter className="text-xl text-muted-foreground font-regular">
+                Top 10 spenders since 8. november
+            </CardFooter>
         </Card>
     );
 }

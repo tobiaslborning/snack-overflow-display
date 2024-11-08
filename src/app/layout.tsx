@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${clashGrotesk.className}`}
+        className={`${clashGrotesk.className} max-w-5xl mx-auto p-4 mt-8`}
       >
         {children}
       </body>

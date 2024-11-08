@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Leaderboard } from "@/components/leaderboard";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -78,6 +79,7 @@ export default function Home() {
           )}
         </div>
         <PurchaseListener />
+        <Leaderboard />
       </main>
   );
 }

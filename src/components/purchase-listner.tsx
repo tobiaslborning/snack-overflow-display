@@ -33,6 +33,8 @@ interface Payment {
 const PurchaseListener: React.FC = () => {
     const [latestPayment, setLatestPayment] = useState<Payment | undefined>(undefined);
     const [isFlashing, setIsFlashing] = useState(false);
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         // Define the document reference
@@ -58,7 +60,7 @@ const PurchaseListener: React.FC = () => {
                 amount: totalAmount,
                 timeStamp: latestDoc.createdAt
               }
-
+              setShow(true);
               setLatestPayment(payment);
             }            
           });
@@ -94,13 +96,24 @@ const PurchaseListener: React.FC = () => {
         return () => clearTimeout(timer);
       }
     }, [latestPayment]);
-  
+
+    useEffect(() => {
+      if (show) {
+        // set show to false after 60 seconds
+        const timer = setTimeout(() => setShow(false), 60000);
+      }
+    }, [show]);
+    
+    if (!show) {
+      return <></>;
+    }
+
     return (
       <Card className={`w-full ${isFlashing ? 'border-green-500 border-2' : 'border-border border-[1px]'}`}>
-        <CardHeader className='font-medium text-muted-foreground text-3xl'>
+        <CardHeader className='font-medium text-muted-foreground lg:text-3xl text-xl'>
           {latestPayment?.userName && latestPayment.userName + " purchased:"}
         </CardHeader>
-        <CardContent className='font-medium text-5xl'>
+        <CardContent className='font-medium lg:text-5xl text-3xl'>
           {latestPayment &&
             latestPayment.products.map((product, index) => (
               <div key={index}>
@@ -109,7 +122,7 @@ const PurchaseListener: React.FC = () => {
               </div>
             ))}
         </CardContent>
-        <CardFooter className='font-medium text-muted-foreground text-3xl'>
+        <CardFooter className='font-medium text-muted-foreground lg:text-3xl text-xl'>
           {latestPayment && "Total: " + latestPayment.amount + "kr"}
         </CardFooter>
       </Card>

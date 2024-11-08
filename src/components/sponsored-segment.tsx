@@ -28,7 +28,7 @@ export function SponsoredSegment() {
                 Sponsored segment
             </CardHeader>
             <CardContent className="flex">
-                <Image src="/images/ad.png" alt="" width={400} height={800} className="mx-auto w-1/3" />
+                <Image unoptimized src="/images/ad.png" alt="" width={400} height={800} className="mx-auto w-1/3" />
             </CardContent>
             <CardFooter className="text-xl text-muted-foreground font-regular">
                 Kjøpt på veldighetsfest

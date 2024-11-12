@@ -4,7 +4,7 @@ import {useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword} from '
 import { auth, db } from '../../../firebase/config'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { TabsContent } from '@radix-ui/react-tabs';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
@@ -13,6 +13,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
+  const [cardTaken, setCardTaken] = useState(false);
 
   const router = useRouter()
 
@@ -25,6 +26,14 @@ const SignUp = () => {
         const res = await createUserWithEmailAndPassword(email, password)
         if (!res) return
         const uid = res.user.uid
+        const cardNumberQuery = query(collection(db,"users"), where("cardNumber", "==", parseInt(cardNumber)))
+        const cardNumberQuerySnapshot = await getDocs(cardNumberQuery)
+        if (cardNumberQuerySnapshot.docs.length > 0) {
+          console.error('Card number already in use')
+          setCardTaken(true)
+          return
+        }
+
         const userRef = doc(db, "users", uid);
         await setDoc(userRef, {
           cardNumber: parseInt(cardNumber),
@@ -74,6 +83,7 @@ const SignUp = () => {
           <div className='text-background my-4'>
             <p>Bruk av Apple og Google pay vil ikke bli tracket, ettersom kortnummeret endrer seg fra dag til dag.</p>
             <p>Denne siden har også helt ass feilhåndtering, så prøv å ikke fuck up på registreringen.</p>
+            {cardTaken && <p className='text-destructive'>{"Noen andre har allerede registrert ett kort med disse 4 siste siffrene💀"}</p>}
           </div>
           <div className='flex gap-3'>
           <input 
@@ -118,6 +128,7 @@ const SignUp = () => {
           >
             Sign Up
           </button>
+
       </TabsContent>
       <TabsContent value='signin' className='mt-4'>
           <div className='text-background my-4'>

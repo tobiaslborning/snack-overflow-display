@@ -60,14 +60,16 @@ export default function Home() {
                   setTotalSpend(spend);
                 })
               }}>
-                <AvatarFallback>{user.email.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
             </PopoverTrigger>
             <PopoverContent>
+              <div className="flex-col gap-2 text-xl font-regular">
+                <span>{user.email}</span>
+              </div>
               {totalSpend && <div className="flex-col gap-2 text-xl font-medium">
                 <span>{"Total Spend: "}</span>
                 <span>{totalSpend + "kr"}</span>
-                
               </div>}
               <div className="flex gap-2 mt-2">
                 <Button onClick={() => auth.signOut()}>Sign Out</Button>

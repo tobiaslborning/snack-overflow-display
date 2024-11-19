@@ -30,6 +30,9 @@ export const testLog = functions.https.onRequest((request, response) => {
   response.send(`HEI`);
 });
 
+export const webhookListenerV1 = functions.https.onRequest(async (request, response) => {
+  response.send('Hello from Firebase!');
+});
 
 export const webhookListenerV2 = functions.https.onRequest(async (request, response) => {
   try {
@@ -88,6 +91,6 @@ export const webhookListenerV2 = functions.https.onRequest(async (request, respo
     response.status(200).send(`Document written with ID: ${docRef.id}`);
   } catch (error) {
     console.error("Error processing request:", error);
-    response.status(500).send("Error processing request");
+    response.status(200).send("Did not write to Firestore");
   }
 });

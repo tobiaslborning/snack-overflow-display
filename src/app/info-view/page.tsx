@@ -45,10 +45,13 @@ export default function Home() {
 
   return (
       <main className="flex flex-col gap-8">
+        <div className="absolute right-[2%] bottom-10 text-center">
+          <Image unoptimized src="/images/qr-new.png" alt="" width={200} height={200} className="size-28 " />
+          <p className="font-medium">Register deg!</p>
+        </div>
         <div className="flex justify-between">
           <div className="flex">
-            <Image unoptimized src="/images/qr.png" alt="" width={200} height={200} className="size-14" />
-            <h1 className="text-3xl mt-3 ml-3 font-medium" >SnackOverflow</h1>
+            <h1 className="text-3xl mt-3 font-medium" >SnackOverflow</h1>
           </div>
           {user?.email ? ( 
           <Popover>

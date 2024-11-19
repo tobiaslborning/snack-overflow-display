@@ -122,8 +122,13 @@ const PurchaseListener: React.FC = () => {
               </div>
             ))}
         </CardContent>
-        <CardFooter className='font-medium text-muted-foreground lg:text-3xl text-xl'>
-          {latestPayment && "Total: " + latestPayment.amount + "kr"}
+        <CardFooter className='font-medium text-muted-foreground text-left grid lg:text-3xl text-xl'>
+          {latestPayment && <p>{"Total: " + latestPayment.amount + "kr"}</p>}
+          {latestPayment && latestPayment.timeStamp && (
+            <p className='text-lg text-muted-foreground'>
+              {latestPayment.timeStamp.toDate().toLocaleString()}
+            </p>
+          )}
         </CardFooter>
       </Card>
     );

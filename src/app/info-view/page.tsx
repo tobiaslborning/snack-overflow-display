@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
       <main className="flex flex-col gap-8">
-        <div className="absolute right-[2%] bottom-10 text-center">
+        <div className="absolute right-[2%] bottom-10 text-center invisible md:visible ">
           <Image unoptimized src="/images/qr-new.png" alt="" width={200} height={200} className="size-28 " />
           <p className="font-medium">Register deg!</p>
         </div>

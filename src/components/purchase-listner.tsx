@@ -109,8 +109,8 @@ const PurchaseListener: React.FC = () => {
     }
 
     return (
-      <Card className={`w-full ${isFlashing ? 'border-green-500 border-2' : 'border-border border-[1px]'}`}>
-        <CardHeader className='font-medium text-muted-foreground lg:text-3xl text-xl'>
+      <Card className={`w-full  ${isFlashing ? 'bg-green-300 border-green-800' : 'bg-background'}`}>
+        <CardHeader className={`font-medium lg:text-3xl text-xl ${isFlashing ? 'text-green-900' : 'text-muted-foreground'}`}>
           {latestPayment?.userName ? latestPayment.userName + " purchased:" : "New purchase:"}
         </CardHeader>
         <CardContent className='font-medium lg:text-5xl text-3xl'>
@@ -122,10 +122,10 @@ const PurchaseListener: React.FC = () => {
               </div>
             ))}
         </CardContent>
-        <CardFooter className='font-medium text-muted-foreground text-left grid lg:text-3xl text-xl'>
+        <CardFooter className={`font-medium ${isFlashing ? 'text-green-900' : 'text-muted-foreground'} text-left grid lg:text-3xl text-xl`}>
           {latestPayment && <p>{"Total: " + latestPayment.amount + "kr"}</p>}
           {latestPayment && latestPayment.timeStamp && (
-            <p className='text-lg text-muted-foreground'>
+            <p className={`text-lg ${isFlashing ? 'text-green-900' : 'text-muted-foreground'}`}>
               {latestPayment.timeStamp.toDate().toLocaleString()}
             </p>
           )}

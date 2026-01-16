@@ -71,12 +71,11 @@ export function Leaderboard() {
                     </div>
                     {index !== leaderboardData.length -1 && <Separator />}
                     </>
-
                 );
             })}
             </CardContent>
             <CardFooter className="text-xl text-muted-foreground font-regular">
-                Top 10 spenders since 8. november
+                {"Top 10 vårblomster🌸🌺"}
             </CardFooter>
         </Card>
     );

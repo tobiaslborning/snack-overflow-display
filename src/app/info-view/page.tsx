@@ -8,11 +8,12 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Leaderboard } from "@/components/leaderboard";
 import { SponsoredSegment } from "@/components/sponsored-segment";
 import Image from "next/image";
+import { User } from "firebase/auth";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -31,6 +32,17 @@ export default function Home() {
     const userData = userSnap.data();
     const totalSpend = userData?.totalSpend;
     return totalSpend;
+  }
+
+  const resetUsersTotalSpend = async () => {
+    console.log("Resetting total spend");
+    const usersRef = await getDocs(collection(db, "users"));
+    usersRef.forEach(async (user : any) => {
+      console.log("reseting user: ", user.id, user.data().firstName, user.data().lastName);
+      await updateDoc(doc(db, "users", user.id), {
+        totalSpend: 0
+      });
+    });
   }
 
   useEffect(() => {
@@ -66,7 +78,7 @@ export default function Home() {
                 <AvatarFallback>{user.email.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent className="flex flex-col gap-4">
               <div className="flex-col gap-2 text-xl font-regular">
                 <span>{user.email}</span>
               </div>
@@ -74,6 +86,15 @@ export default function Home() {
                 <span>{"Total Spend: "}</span>
                 <span>{totalSpend + "kr"}</span>
               </div>}
+              {user.email === "tobias@borning.no" && <Button 
+                variant={"destructive"}
+                onClick={() => {
+                  resetUsersTotalSpend()
+                }}
+              >
+                Reset Total Spend
+              </Button>
+              }
               <div className="flex gap-2 mt-2">
                 <Button onClick={() => auth.signOut()}>Sign Out</Button>
               </div>
@@ -89,7 +110,7 @@ export default function Home() {
           )}
         </div>
         <PurchaseListener />
-        <SponsoredSegment />
+        {/* <SponsoredSegment /> */}
         <Leaderboard />
       </main>
   );

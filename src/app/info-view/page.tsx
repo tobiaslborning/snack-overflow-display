@@ -86,7 +86,7 @@ export default function Home() {
                 <span>{"Total Spend: "}</span>
                 <span>{totalSpend + "kr"}</span>
               </div>}
-              {user.email === "tobias@borning.no" && <Button 
+              {(user.email === "tobias@borning.no" || user.email === "adrianjlund04@gmail.com") && <Button 
                 variant={"destructive"}
                 onClick={() => {
                   resetUsersTotalSpend()

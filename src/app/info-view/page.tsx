@@ -159,21 +159,22 @@ export default function Home() {
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-orange-200 bg-orange-50 p-4 shadow-sm transition-transform duration-300 hover:-translate-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-orange-700">Registered Humans</p>
+                <p className="text font-semibold uppercase tracking-[0.2em] text-orange-700">Registered Snackers</p>
                 <p className="mt-2 text-4xl font-semibold text-orange-900">{registeredUsers}</p>
-                <p className="text-sm text-orange-700">Potential snack legends</p>
+                
               </div>
               <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 shadow-sm transition-transform duration-300 hover:-translate-y-1">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">Purchases Today</p>
+                <p className="text font-semibold uppercase tracking-[0.2em] text-sky-700">Purchases Today</p>
                 <p className="mt-2 text-4xl font-semibold text-sky-900">{purchasesToday}</p>
-                <p className="text-sm text-sky-700">Snacks checked out today</p>
+                
+                
               </div>
             </div>
 
             <div className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">Join The Board</p>
+              <p className="text-xl font-semibold uppercase tracking-[0.2em] text-zinc-500">Join The Board</p>
               <Image unoptimized src="/images/qr-new.png" alt="Registration QR code" width={220} height={220} className="mx-auto mt-3 size-40" />
-              <p className="mt-3 text-center text-lg font-medium text-zinc-800">Register deg for snack glory</p>
+              <p className="mt-1 text-center text-xl font-medium text-zinc-800">Register deg for evig snack glory</p>
             </div>
 
           </aside>

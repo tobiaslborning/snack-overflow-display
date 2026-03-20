@@ -147,9 +147,9 @@ export default function Home() {
             <div className="rounded-3xl border border-zinc-200/80 bg-white/85 p-5 shadow-[0_20px_70px_-35px_rgba(15,23,42,0.55)] backdrop-blur md:p-6">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">SnackOverflow Live</p>
-                  <h1 className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900 md:text-5xl">Stats, snacks, leaderboard</h1>
-                  <p className="mt-3 max-w-xl text-base text-zinc-600 md:text-lg">Live infoskjerm for kiosken.</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">©Borning x Lund</p>
+                  <h1 className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900 md:text-5xl">SnackOverflow</h1>
+                  <p className="mt-3 max-w-xl text-base text-zinc-600 md:text-lg">Live infoskjerm for Abakus</p>
                 </div>
                 <div className="shrink-0">
                   {accountControl}

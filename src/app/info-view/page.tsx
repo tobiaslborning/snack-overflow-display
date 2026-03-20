@@ -8,7 +8,17 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, Timestamp, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getCountFromServer,
+  getDoc,
+  getDocs,
+  query,
+  Timestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Leaderboard } from "@/components/leaderboard";
 import Image from "next/image";
@@ -62,31 +72,27 @@ export default function Home() {
   }, [user, loading, router]);
 
   useEffect(() => {
-    const usersQuery = query(collection(db, "users"), orderBy("totalSpend", "desc"));
-    const purchasesQuery = query(collection(db, "testPurchase"), orderBy("createdAt", "desc"));
+    const fetchStats = async () => {
+      try {
+        const usersCountSnapshot = await getCountFromServer(collection(db, "users"));
+        setRegisteredUsers(usersCountSnapshot.data().count);
 
-    const unsubscribeUsers = onSnapshot(usersQuery, (snapshot) => {
-      const users = snapshot.docs.map((entry) => entry.data() as UserStats);
-      setRegisteredUsers(users.length);
-    });
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-    const unsubscribePurchases = onSnapshot(purchasesQuery, (snapshot) => {
-      const purchases = snapshot.docs.map((entry) => entry.data() as PurchaseStats);
-      const today = new Date();
-      const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const purchasesTodayQuery = query(
+          collection(db, "testPurchase"),
+          where("createdAt", ">=", Timestamp.fromDate(startOfDay))
+        );
 
-      const purchasesInDay = purchases.filter((purchase) => {
-        if (!purchase.createdAt) return false;
-        return purchase.createdAt.toDate() >= startOfDay;
-      }).length;
-
-      setPurchasesToday(purchasesInDay);
-    });
-
-    return () => {
-      unsubscribeUsers();
-      unsubscribePurchases();
+        const purchasesCountSnapshot = await getCountFromServer(purchasesTodayQuery);
+        setPurchasesToday(purchasesCountSnapshot.data().count);
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      }
     };
+
+    fetchStats();
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -110,7 +116,7 @@ export default function Home() {
         <div className="flex-col gap-2 text-xl font-regular">
           <span>{user.email}</span>
         </div>
-        {totalSpend && <div className="flex-col gap-2 text-xl font-medium">
+        {totalSpend !== undefined && <div className="flex-col gap-2 text-xl font-medium">
           <span>{"Total Spend: "}</span>
           <span>{totalSpend + "kr"}</span>
         </div>}
@@ -147,9 +153,9 @@ export default function Home() {
             <div className="rounded-3xl border border-zinc-200/80 bg-white/85 p-5 shadow-[0_20px_70px_-35px_rgba(15,23,42,0.55)] backdrop-blur md:p-6">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-500">©Borning x Lund</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-700">©Borning x Lund</p>
                   <h1 className="mt-2 text-4xl font-semibold tracking-tight text-zinc-900 md:text-5xl">SnackOverflow</h1>
-                  <p className="mt-3 max-w-xl text-base text-zinc-600 md:text-lg">Live infoskjerm for Abakus</p>
+                  <p className="mt-3 max-w-xl text-base text-zinc-600 md:text-2xl">Live infoskjerm for Abakus</p>
                 </div>
                 <div className="shrink-0">
                   {accountControl}

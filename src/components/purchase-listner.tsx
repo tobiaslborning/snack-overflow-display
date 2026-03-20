@@ -54,7 +54,7 @@ function getRandomQuote(): QuoteItem {
   return allQuotes[randomIndex];
 }
 
-const PurchaseListener: React.FC = () => {
+const PurchaseListener = () => {
     const [latestPayment, setLatestPayment] = useState<Payment | undefined>(undefined);
     const [isFlashing, setIsFlashing] = useState(false);
     const [show, setShow] = useState(false);

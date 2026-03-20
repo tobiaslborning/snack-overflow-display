@@ -23,15 +23,6 @@ import { useEffect, useState } from "react";
 import { Leaderboard } from "@/components/leaderboard";
 import Image from "next/image";
 
-interface UserStats {
-  firstName?: string;
-  lastName?: string;
-  totalSpend?: number;
-}
-
-interface PurchaseStats {
-  createdAt?: Timestamp;
-}
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);

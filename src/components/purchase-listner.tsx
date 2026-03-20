@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { collection, query, orderBy, limit, onSnapshot, Timestamp, where, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/config';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
+import quotesData from "@/data/daily-quotes.json";
 
 
 interface Product {
@@ -30,10 +31,34 @@ interface Payment {
   timeStamp?: Timestamp;
 }
 
+interface QuoteItem {
+  text: string;
+  author: string;
+}
+
+const fallbackQuote: QuoteItem = {
+  text: "Null stress, full snack.",
+  author: "SnackOverflow visdom",
+};
+
+const allQuotes: QuoteItem[] = Array.isArray(quotesData)
+  ? quotesData.filter((entry): entry is QuoteItem => {
+      const candidate = entry as Partial<QuoteItem>;
+      return typeof candidate.text === "string" && typeof candidate.author === "string";
+    })
+  : [];
+
+function getRandomQuote(): QuoteItem {
+  if (allQuotes.length === 0) return fallbackQuote;
+  const randomIndex = Math.floor(Math.random() * allQuotes.length);
+  return allQuotes[randomIndex];
+}
+
 const PurchaseListener: React.FC = () => {
     const [latestPayment, setLatestPayment] = useState<Payment | undefined>(undefined);
     const [isFlashing, setIsFlashing] = useState(false);
     const [show, setShow] = useState(false);
+    const [quoteOfTheDay, setQuoteOfTheDay] = useState<QuoteItem>(fallbackQuote);
 
 
     useEffect(() => {
@@ -62,6 +87,7 @@ const PurchaseListener: React.FC = () => {
               }
               setShow(true);
               setLatestPayment(payment);
+              setQuoteOfTheDay(getRandomQuote());
             }            
           });
           // Clean up the listener on component unmount
@@ -98,6 +124,10 @@ const PurchaseListener: React.FC = () => {
     }, [latestPayment]);
 
     useEffect(() => {
+      setQuoteOfTheDay(getRandomQuote());
+    }, []);
+
+    useEffect(() => {
       if (show) {
         // set show to false after 60 seconds
         const timer = setTimeout(() => setShow(false), 60000);
@@ -107,22 +137,22 @@ const PurchaseListener: React.FC = () => {
     
     if (!show) {
       return (
-        <Card className="w-full min-h-[320px] overflow-hidden border-2 border-zinc-200 bg-white">
+        <Card className="w-full min-h-[260px] overflow-hidden border-2 border-zinc-200 bg-white">
           <CardHeader className="font-semibold lg:text-3xl text-xl tracking-tight text-zinc-700">
-            Dagens quote
+            Overhørt Hall of Fame
           </CardHeader>
           <CardContent className="flex flex-1 items-center font-semibold lg:text-4xl text-3xl text-zinc-900">
-            <p className="leading-tight">"Null stress, full snack."</p>
+            <p className="leading-tight">"{quoteOfTheDay.text}"</p>
           </CardContent>
-          <CardFooter className="font-medium text-zinc-500 text-left lg:text-xl text-lg">
-            SnackOverflow visdom
+          <CardFooter className="font-medium text-zinc-500 text-left lg:text-2xl text-lg">
+            {quoteOfTheDay.author}
           </CardFooter>
         </Card>
       );
     }
 
     return (
-      <Card className={`w-full min-h-[320px] overflow-hidden border-2 transition-all duration-500 ${isFlashing ? 'border-emerald-500 bg-emerald-50 shadow-[0_0_0_8px_rgba(16,185,129,0.22)]' : 'border-zinc-200 bg-white'}`}>
+      <Card className={`w-full min-h-[260px] overflow-hidden border-2 transition-all duration-500 ${isFlashing ? 'border-emerald-500 bg-emerald-50 shadow-[0_0_0_8px_rgba(16,185,129,0.22)]' : 'border-zinc-200 bg-white'}`}>
         <CardHeader className={`font-semibold lg:text-3xl text-xl tracking-tight ${isFlashing ? 'text-emerald-900' : 'text-zinc-700'}`}>
           {latestPayment?.userName ? latestPayment.userName + " purchased:" : "New purchase:"}
         </CardHeader>

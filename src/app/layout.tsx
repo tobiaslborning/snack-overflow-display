@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Image from "next/image";
 
 const clashGrotesk = localFont({
   src: [
@@ -52,7 +51,7 @@ export default function RootLayout({
     <html lang="en">
 
       <body
-        className={`${clashGrotesk.className} max-w-5xl bg-background mx-auto p-4 mt-8 mb-8`}
+        className={`${clashGrotesk.className} bg-background`}
       > 
         {children}
       </body>

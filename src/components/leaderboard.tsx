@@ -54,28 +54,28 @@ export function Leaderboard() {
       }, [leaderboardData]);
 
     return (
-        <Card className={`w-full ${isFlashing ? 'border-green-500 border-2' : 'border-border border-[1px]'}`}>
-            <CardHeader className="lg:text-5xl text-3xl font-medium">
-                Leaderboard
+        <Card className={`w-full overflow-hidden border-2 transition-all duration-500 ${isFlashing ? 'border-emerald-400 bg-emerald-50/80 shadow-[0_0_0_6px_rgba(52,211,153,0.2)]' : 'border-zinc-200 bg-white'}`}>
+            <CardHeader className="bg-[linear-gradient(120deg,rgba(34,197,94,0.15),rgba(14,165,233,0.05))] pb-4 lg:text-4xl text-3xl font-semibold tracking-tight">
+                Snack Leaderboard
             </CardHeader>
-            <CardContent className="lg:text-2xl text-xl flex flex-col gap-2">    
+            <CardContent className="lg:text-2xl text-xl flex flex-col gap-2 pt-4">    
             {leaderboardData.map((user, index) => {
                 return (
-                    <>
-                    <div className="flex justify-between" key={index}>
+                    <div key={`${user.firstName}-${user.lastName}-${index}`}>
+                    <div className="flex justify-between items-center">
                         <div className="flex">
-                            <p className="w-8 font-regular italic">{index+1 +"."}</p>
-                            <span className="font-regular">{user.firstName + " " + user.lastName}</span>
+                            <p className="w-10 font-medium italic text-zinc-500">{index+1 +"."}</p>
+                            <span className="font-medium text-zinc-800">{user.firstName + " " + user.lastName}</span>
                         </div>
-                        <span className="italic">{user.totalSpend + "kr"}</span>
+                        <span className="rounded-full bg-zinc-100 px-3 py-1 text-lg italic text-zinc-700">{user.totalSpend + "kr"}</span>
                     </div>
                     {index !== leaderboardData.length -1 && <Separator />}
-                    </>
+                    </div>
                 );
             })}
             </CardContent>
-            <CardFooter className="text-xl text-muted-foreground font-regular">
-                {"Top 10 vårblomster🌸🌺"}
+            <CardFooter className="text-lg text-zinc-500 font-medium">
+                {"Top 10 vårblomster med høyest snack-portfolio"}
             </CardFooter>
         </Card>
     );

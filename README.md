@@ -28,3 +28,68 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+```
+snack-overflow-display
+├─ components.json
+├─ firebase
+│  └─ config.ts
+├─ firebase.json
+├─ functions
+│  ├─ package.json
+│  ├─ src
+│  │  └─ index.ts
+│  └─ tsconfig.json
+├─ next.config.mjs
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ public
+│  └─ images
+│     ├─ ad.png
+│     ├─ qr-new.png
+│     └─ qr.png
+├─ README.md
+├─ src
+│  ├─ app
+│  │  ├─ favicon.ico
+│  │  ├─ fonts
+│  │  │  ├─ ClashGrotesk-Bold.otf
+│  │  │  ├─ ClashGrotesk-Extralight.otf
+│  │  │  ├─ ClashGrotesk-Light.otf
+│  │  │  ├─ ClashGrotesk-Medium.otf
+│  │  │  ├─ ClashGrotesk-Regular.otf
+│  │  │  ├─ ClashGrotesk-Semibold.otf
+│  │  │  ├─ GeistMonoVF.woff
+│  │  │  └─ GeistVF.woff
+│  │  ├─ globals.css
+│  │  ├─ info-view
+│  │  │  ├─ layout.tsx
+│  │  │  └─ page.tsx
+│  │  ├─ layout.tsx
+│  │  ├─ page.tsx
+│  │  └─ sign-up
+│  │     └─ page.tsx
+│  ├─ components
+│  │  ├─ leaderboard.tsx
+│  │  ├─ purchase-listner.tsx
+│  │  ├─ sponsored-segment.tsx
+│  │  └─ ui
+│  │     ├─ avatar.tsx
+│  │     ├─ button.tsx
+│  │     ├─ card.tsx
+│  │     ├─ dialog.tsx
+│  │     ├─ input.tsx
+│  │     ├─ popover.tsx
+│  │     ├─ separator.tsx
+│  │     ├─ sheet.tsx
+│  │     ├─ skeleton.tsx
+│  │     ├─ tabs.tsx
+│  │     └─ tooltip.tsx
+│  └─ lib
+│     └─ utils.ts
+├─ tailwind.config.ts
+├─ tsconfig.json
+└─ ui-debug.log
+
+```

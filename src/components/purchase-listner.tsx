@@ -101,31 +101,44 @@ const PurchaseListener: React.FC = () => {
       if (show) {
         // set show to false after 60 seconds
         const timer = setTimeout(() => setShow(false), 60000);
+        return () => clearTimeout(timer);
       }
     }, [show]);
     
     if (!show) {
-      return <></>;
+      return (
+        <Card className="w-full min-h-[320px] overflow-hidden border-2 border-zinc-200 bg-white">
+          <CardHeader className="font-semibold lg:text-3xl text-xl tracking-tight text-zinc-700">
+            Dagens quote
+          </CardHeader>
+          <CardContent className="flex flex-1 items-center font-semibold lg:text-4xl text-3xl text-zinc-900">
+            <p className="leading-tight">"Null stress, full snack."</p>
+          </CardContent>
+          <CardFooter className="font-medium text-zinc-500 text-left lg:text-xl text-lg">
+            SnackOverflow visdom
+          </CardFooter>
+        </Card>
+      );
     }
 
     return (
-      <Card className={`w-full  ${isFlashing ? 'bg-green-300 border-green-800' : 'bg-background'}`}>
-        <CardHeader className={`font-medium lg:text-3xl text-xl ${isFlashing ? 'text-green-900' : 'text-muted-foreground'}`}>
+      <Card className={`w-full min-h-[320px] overflow-hidden border-2 transition-all duration-500 ${isFlashing ? 'border-emerald-500 bg-emerald-50 shadow-[0_0_0_8px_rgba(16,185,129,0.22)]' : 'border-zinc-200 bg-white'}`}>
+        <CardHeader className={`font-semibold lg:text-3xl text-xl tracking-tight ${isFlashing ? 'text-emerald-900' : 'text-zinc-700'}`}>
           {latestPayment?.userName ? latestPayment.userName + " purchased:" : "New purchase:"}
         </CardHeader>
-        <CardContent className='font-medium lg:text-5xl text-3xl'>
+        <CardContent className='font-semibold lg:text-5xl text-3xl'>
           {latestPayment &&
             latestPayment.products.map((product, index) => (
-              <div key={index}>
-                <p>{product.name}</p>
-                <p className='italic'>{product.unitPrice / 100 + "kr"}</p>
+              <div key={index} className='mb-4 rounded-xl bg-zinc-50 p-4'>
+                <p className='text-zinc-900'>{product.name}</p>
+                <p className='italic text-zinc-600'>{product.unitPrice / 100 + "kr"}</p>
               </div>
             ))}
         </CardContent>
-        <CardFooter className={`font-medium ${isFlashing ? 'text-green-900' : 'text-muted-foreground'} text-left grid lg:text-3xl text-xl`}>
+        <CardFooter className={`font-medium ${isFlashing ? 'text-emerald-900' : 'text-zinc-500'} text-left grid lg:text-3xl text-xl`}>
           {latestPayment && <p>{"Total: " + latestPayment.amount + "kr"}</p>}
           {latestPayment && latestPayment.timeStamp && (
-            <p className={`text-lg ${isFlashing ? 'text-green-900' : 'text-muted-foreground'}`}>
+            <p className={`text-lg ${isFlashing ? 'text-emerald-900' : 'text-zinc-500'}`}>
               {latestPayment.timeStamp.toDate().toLocaleString()}
             </p>
           )}

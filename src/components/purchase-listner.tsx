@@ -128,12 +128,12 @@ const PurchaseListener = () => {
     }, []);
 
     useEffect(() => {
-      if (show) {
+      if (show && latestPayment) {
         // set show to false after 60 seconds
         const timer = setTimeout(() => setShow(false), 60000);
         return () => clearTimeout(timer);
       }
-    }, [show]);
+    }, [show, latestPayment]);
     
     if (!show) {
       return (

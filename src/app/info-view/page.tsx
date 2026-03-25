@@ -14,6 +14,7 @@ import {
   getCountFromServer,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   Timestamp,
   updateDoc,
@@ -63,27 +64,55 @@ export default function Home() {
   }, [user, loading, router]);
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchRegisteredUsers = async () => {
       try {
         const usersCountSnapshot = await getCountFromServer(collection(db, "users"));
         setRegisteredUsers(usersCountSnapshot.data().count);
-
-        const now = new Date();
-        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-        const purchasesTodayQuery = query(
-          collection(db, "testPurchase"),
-          where("createdAt", ">=", Timestamp.fromDate(startOfDay))
-        );
-
-        const purchasesCountSnapshot = await getCountFromServer(purchasesTodayQuery);
-        setPurchasesToday(purchasesCountSnapshot.data().count);
       } catch (error) {
         console.error("Failed to fetch stats:", error);
       }
     };
 
-    fetchStats();
+    fetchRegisteredUsers();
+  }, []);
+
+  useEffect(() => {
+    let unsubscribe: (() => void) | undefined;
+    let midnightTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const subscribeToTodayPurchases = () => {
+      unsubscribe?.();
+
+      const now = new Date();
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startOfTomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+
+      const purchasesTodayQuery = query(
+        collection(db, "testPurchase"),
+        where("createdAt", ">=", Timestamp.fromDate(startOfDay)),
+        where("createdAt", "<", Timestamp.fromDate(startOfTomorrow))
+      );
+
+      unsubscribe = onSnapshot(
+        purchasesTodayQuery,
+        (snapshot) => {
+          setPurchasesToday(snapshot.size);
+        },
+        (error) => {
+          console.error("Failed to subscribe to purchases today:", error);
+        }
+      );
+
+      const msUntilTomorrow = startOfTomorrow.getTime() - now.getTime();
+      midnightTimer = setTimeout(subscribeToTodayPurchases, msUntilTomorrow + 1000);
+    };
+
+    subscribeToTodayPurchases();
+
+    return () => {
+      unsubscribe?.();
+      if (midnightTimer) clearTimeout(midnightTimer);
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { collection, query, orderBy, limit, onSnapshot, Timestamp, where, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/config';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
@@ -54,11 +54,18 @@ function getRandomQuote(): QuoteItem {
   return allQuotes[randomIndex];
 }
 
+function getPurchaseHeadline(products: Product[]): string {
+  if (products.length === 0) return "Purchase registered";
+  if (products.length === 1) return products[0].name;
+  return `${products[0].name} + ${products.length - 1} more`;
+}
+
 const PurchaseListener = () => {
     const [latestPayment, setLatestPayment] = useState<Payment | undefined>(undefined);
     const [isFlashing, setIsFlashing] = useState(false);
     const [show, setShow] = useState(false);
     const [quoteOfTheDay, setQuoteOfTheDay] = useState<QuoteItem>(fallbackQuote);
+    const latestSeenPurchaseId = useRef<string | null>(null);
 
 
     useEffect(() => {
@@ -71,13 +78,22 @@ const PurchaseListener = () => {
           // Set up the snapshot listener
           const unsubscribe = onSnapshot(q, async (snapshot) => {
             if (!snapshot.empty) {
+              const latestSnapshotDoc = snapshot.docs[0];
+              const purchaseId = latestSnapshotDoc.id;
+
               // Get the latest document from the snapshot
-              const latestDoc = snapshot.docs[0].data() as TestPurchase;
+              latestSeenPurchaseId.current = purchaseId;
+              const latestDoc = latestSnapshotDoc.data() as TestPurchase;
               const products = latestDoc.products;
               const totalAmount = latestDoc.totalAmount;
               const last4Digits = latestDoc.last4Digits;
 
               const user = await getUser(last4Digits);
+
+              // Ignore slower, stale callbacks if a newer purchase arrived while we looked up the user.
+              if (latestSeenPurchaseId.current !== purchaseId) {
+                return;
+              }
 
               const payment : Payment = {
                 products: products,
@@ -157,13 +173,16 @@ const PurchaseListener = () => {
           {latestPayment?.userName ? latestPayment.userName + " purchased:" : "New purchase:"}
         </CardHeader>
         <CardContent className='font-semibold lg:text-5xl text-3xl'>
-          {latestPayment &&
-            latestPayment.products.map((product, index) => (
-              <div key={index} className='mb-4 rounded-xl bg-zinc-50 p-4'>
-                <p className='text-zinc-900'>{product.name}</p>
-                <p className='italic text-zinc-600'>{product.unitPrice / 100 + "kr"}</p>
-              </div>
-            ))}
+          {latestPayment && (
+            <div className='rounded-xl bg-zinc-50 p-4'>
+              <p className='text-zinc-900'>{getPurchaseHeadline(latestPayment.products)}</p>
+              {latestPayment.products.length > 1 && (
+                <p className='mt-3 text-lg font-medium text-zinc-600 lg:text-2xl'>
+                  {latestPayment.products.length + " items in this purchase"}
+                </p>
+              )}
+            </div>
+          )}
         </CardContent>
         <CardFooter className={`font-medium ${isFlashing ? 'text-emerald-900' : 'text-zinc-500'} text-left grid lg:text-3xl text-xl`}>
           {latestPayment && <p>{"Total: " + latestPayment.amount + "kr"}</p>}
